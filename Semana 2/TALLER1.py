@@ -1,13 +1,11 @@
 lista = [20, 12, 21.3, 34]
 
 
-
-
 def suma_lista(lista):
     suma=0
     for i in lista:
         suma=suma+i
-    return float(suma )
+    return (suma )
 
 
 
@@ -44,3 +42,128 @@ assert suma_lista(lista) == 87.3, "Tu función no retorna el valor correcto."
 
 # Mensaje de felicitaciones
 print("Felicidades, realizaste este ejercicio correctamente.")
+
+
+#------- EJERCICIO - 2 ------
+
+
+def primera_letra(lista):
+    for elemento in lista:
+        if isinstance(elemento, str) and elemento.isalpha() and len(elemento) == 1:
+            return elemento
+    return ""
+
+# Base variables
+lista = [23, "2", 46 , "l", 8.3, "m"]
+lista_prueba = [23.7, "15", "22.2", 21, 48, "x", 24, 15.9, "f"]
+lista_prueba_2 = [23.7, "15", "22.2", 21, "x", 24, 15.9, "f"]
+lista_prueba_3 = [23.7, "15", "22.2", 21, 24, 15.9]
+
+# Caso 1: no existe la función.
+try:
+    primera_letra
+    assert type(primera_letra) == type(lambda:None)
+except:
+    raise NotImplementedError("No existe una función llamada primera_letra.",)
+    
+# Caso 2: la función es interrumpida por errores durante su ejecución.
+try:
+    primera_letra(lista)
+    primera_letra(lista_prueba)
+    primera_letra(lista_prueba_2)
+    primera_letra(lista_prueba_3)
+except:
+    raise RuntimeError("Tu función produce un error al ejecutarse.")
+    
+# Caso 3: no retorna una letra
+assert type(primera_letra(lista_prueba)) == str, f"Tu función debe retornar un valor de tipo {str.__name__}."
+
+# Caso 4: respuesta explicita
+assert primera_letra(lista_prueba) != "l", "Tu respuesta es incorrecta para para una instancia diferente. Utiliza el parámetro."
+
+# Caso 5: la función retorna vacio
+assert primera_letra(lista_prueba_3) == "", "Tu función debe retornar una cadena de texto vacía cuando no hay una letra en la lista."
+
+# Caso 6: no encuentra letras.
+assert primera_letra(lista_prueba) != "", "Tu función no encuentra una letra en la lista. Puede no estar explorando todos sus elementos."
+
+# Caso 7: retorna una letra distinta de la esperada
+assert primera_letra(lista_prueba) == "x", "Tu función no retorna la letra correcta."
+assert primera_letra(lista) == "l", "Tu función no retorna la letra correcta."
+
+# Mensaje de felicitaciones
+print("Felicidades, realizaste este ejercicio correctamente.")
+
+
+
+# ------- Ejercicio 3 ------
+
+
+def separar_pares_impares(lista):
+   
+    pares = sorted([x for x in lista if x % 2 == 0])
+    impares = sorted([x for x in lista if x % 2 != 0])
+
+    return (pares,impares)
+
+    # sorted -  ordena la lista  final de menor a mayor
+    # for -  para recorrer cada num de la lista
+    # 'x' -  elemento de la lista mientras se recorre
+    # 'in lista' indica que estamos recorriendo la lista dada como parámetro
+    # '% 2 == 0 - si son pares 
+
+
+# Base variables
+lista = [4, 3, 8, 5, 6, 2, 7, 5]
+lista_prueba = [3, 1, 2, 8, 6, 6, 7, 10, 9, 8]
+
+# Caso 1: no existe la función.
+try:
+    separar_pares_impares
+    assert type(separar_pares_impares) == type(lambda:None)
+except:
+    raise NotImplementedError("No existe una función llamada separar_pares_impares.")
+
+# Caso 2: la función es interrumpida por errores durante su ejecución.
+try:
+    separar_pares_impares(lista)
+    separar_pares_impares(lista_prueba)
+except:
+    raise RuntimeError("Tu función produce un error al ejecutarse.")
+
+# Caso 3: no retorna una tupla de listas
+assert type(separar_pares_impares(lista_prueba)) == tuple, f"Tu función debe retornar un valor de tipo {tuple.__name__}."
+assert type(separar_pares_impares(lista_prueba)[0]) == list and type(separar_pares_impares(lista_prueba)[1]) == list, "La tupla que retorna tu función debe contener una lista en su primera y segunda posicion."
+
+# Case 4: len(tupla) != 2
+assert len(separar_pares_impares(lista_prueba)) == len(([],[])), "Tu función retorna una tupla de tamaño incorrecto."
+
+# Caso 5: respuesta explicita
+assert separar_pares_impares(lista_prueba) == ([2, 6, 6, 8, 8, 10], [1, 3, 7, 9]), "Tu respuesta es incorrecta para para una instancia diferente. Utiliza el parámetro."
+
+# Caso 6: la lista de impares está ubicada antes que la lista de pares.
+assert sum([i % 2 for i in separar_pares_impares(lista_prueba)[0]]) == 0, "La primera lista de la tupla debe contener únicamente pares."
+assert sum([(i + 1) % 2 for i in separar_pares_impares(lista_prueba)[1]]) == 0, "La segunda lista de la tupla debe contener únicamente impares."
+
+# Caso 7: la lista de pares y la lista de impares es cada una de longitud incorrecta
+assert len(separar_pares_impares(lista_prueba)[0]) == len([2, 6, 6, 8, 8, 10]), "La primera lista de la tupla que retorna tu función no tiene la longitud correcta."
+assert len(separar_pares_impares(lista_prueba)[1]) == len([1, 3, 7, 9]), "La segunda lista de la tupla que retorna tu función no tiene la longitud correcta."
+
+# Caso 8: las listas son correctas, independiente de su orden
+assert set(separar_pares_impares(lista_prueba)[0]) == {2, 6, 6, 8, 8, 10}, "La primera lista de la tupla que retorna tu función no contiene los elementos esperados, independiente de su orden."
+assert set(separar_pares_impares(lista_prueba)[1]) == {1, 3, 7, 9}, "La segunda lista de la tupla que retorna tu función no contiene los elementos esperados, independiente de su orden."
+
+# Caso 9: las listas no están ordenadas ascendentemente
+assert separar_pares_impares(lista_prueba)[0] == [2, 6, 6, 8, 8, 10], "La primera lista de la tupla que retorna tu función no está ordenada ascendentemente."
+assert separar_pares_impares(lista_prueba)[1] == [1, 3, 7, 9], "La segunda lista de la tupla que retorna tu función no está ordenada ascendentemente."
+
+assert separar_pares_impares(lista)[0] == [2, 4, 6 ,8], "La primera lista de la tupla que retorna tu función no está ordenada ascendentemente."
+assert separar_pares_impares(lista)[1] == [3, 5, 5, 7], "La segunda lista de la tupla que retorna tu función no está ordenada ascendentemente."
+
+# Mensaje de felicitaciones
+print("Felicidades, realizaste este ejercicio correctamente.")
+
+
+# ------- EJERCICIO 4   ---------
+
+
